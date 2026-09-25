@@ -1,0 +1,326 @@
+[
+  {
+    "id": 1,
+    "title": "Kürk Mantolu Madonna",
+    "author": "Sabahattin Ali",
+    "pages": 160,
+    "year": 1943,
+    "genre": "Roman",
+    "priority": "yuksek",
+    "status": "okunuyor",
+    "progress": 96,
+    "hue": 40,
+    "desc": "Berlin’de bir sergide karşılaştığı portre, sessiz bir memurun iç dünyasını baştan aşağı değiştirir. Aşk, yalnızlık ve söylenemeyenler üzerine kısa ama derin bir roman.",
+    "notes": [
+      {
+        "page": "s. 42",
+        "date": "18 Eyl",
+        "text": "Raif Efendi’nin sessizliği aslında bir tür çığlık."
+      }
+    ],
+    "history": [
+      {
+        "date": "14 Ağu 2026",
+        "text": "Okumaya başlandı",
+        "kind": "start"
+      },
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Tutunamayanlar",
+    "author": "Oğuz Atay",
+    "pages": 724,
+    "year": 1972,
+    "genre": "Roman",
+    "priority": "yuksek",
+    "status": "okunacak",
+    "progress": 0,
+    "hue": 250,
+    "desc": "Bir arkadaşının intiharının ardından onun defterlerini okuyan Turgut, kendi hayatını da sorgulamaya başlar. Türk edebiyatının biçim açısından en cesur romanlarından biri.",
+    "notes": [],
+    "history": [
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Saatleri Ayarlama Enstitüsü",
+    "author": "Ahmet Hamdi Tanpınar",
+    "pages": 382,
+    "year": 1961,
+    "genre": "Roman",
+    "priority": "orta",
+    "status": "okunuyor",
+    "progress": 140,
+    "hue": 80,
+    "desc": "Hayri İrdal’ın gözünden, saatleri ayarlamak için kurulan absürt bir kurum üzerinden modernleşme ve bürokrasi hicvi.",
+    "notes": [],
+    "history": [
+      {
+        "date": "14 Ağu 2026",
+        "text": "Okumaya başlandı",
+        "kind": "start"
+      },
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Yüzyıllık Yalnızlık",
+    "author": "Gabriel García Márquez",
+    "pages": 464,
+    "year": 1967,
+    "genre": "Roman",
+    "priority": "orta",
+    "status": "okunacak",
+    "progress": 0,
+    "hue": 150,
+    "desc": "Buendía ailesinin yedi kuşağı ve hayali Macondo kasabası; büyülü gerçekçiliğin kurucu metinlerinden.",
+    "notes": [],
+    "history": [
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Sapiens",
+    "author": "Yuval Noah Harari",
+    "pages": 512,
+    "year": 2011,
+    "genre": "Tarih",
+    "priority": "dusuk",
+    "status": "okunacak",
+    "progress": 0,
+    "hue": 60,
+    "desc": "İnsan türünün avcı-toplayıcılıktan günümüze uzanan hikâyesi; bilişsel, tarım ve bilim devrimleri ekseninde.",
+    "notes": [],
+    "history": [
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Suç ve Ceza",
+    "author": "Fyodor Dostoyevski",
+    "pages": 687,
+    "year": 1866,
+    "genre": "Klasik",
+    "priority": "orta",
+    "status": "okundu",
+    "progress": 687,
+    "hue": 20,
+    "desc": "Yoksul bir öğrenci olan Raskolnikov’un işlediği cinayetin ardından yaşadığı vicdan muhasebesi.",
+    "notes": [
+      {
+        "page": "s. 311",
+        "date": "28 Ağu",
+        "text": "Sonya ile İncil okuma sahnesi kitabın kalbi."
+      }
+    ],
+    "history": [
+      {
+        "date": "2 Eyl 2026",
+        "text": "Okundu olarak işaretlendi",
+        "kind": "done"
+      },
+      {
+        "date": "14 Ağu 2026",
+        "text": "Okumaya başlandı",
+        "kind": "start"
+      },
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Beyaz Kale",
+    "author": "Orhan Pamuk",
+    "pages": 184,
+    "year": 1985,
+    "genre": "Roman",
+    "priority": "dusuk",
+    "status": "okundu",
+    "progress": 184,
+    "hue": 220,
+    "desc": "17. yüzyıl İstanbul’unda bir Venedikli köle ile ona tıpatıp benzeyen efendisi arasındaki kimlik oyunu.",
+    "notes": [],
+    "history": [
+      {
+        "date": "2 Eyl 2026",
+        "text": "Okundu olarak işaretlendi",
+        "kind": "done"
+      },
+      {
+        "date": "14 Ağu 2026",
+        "text": "Okumaya başlandı",
+        "kind": "start"
+      },
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Körlük",
+    "author": "José Saramago",
+    "pages": 336,
+    "year": 1995,
+    "genre": "Roman",
+    "priority": "yuksek",
+    "status": "okunacak",
+    "progress": 0,
+    "hue": 300,
+    "desc": "Adsız bir şehirde yayılan beyaz körlük salgını, toplumsal düzenin ne kadar kırılgan olduğunu gösterir.",
+    "notes": [],
+    "history": [
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Dune",
+    "author": "Frank Herbert",
+    "pages": 712,
+    "year": 1965,
+    "genre": "Bilimkurgu",
+    "priority": "orta",
+    "status": "okunacak",
+    "progress": 0,
+    "hue": 60,
+    "desc": "Çöl gezegeni Arrakis’te baharat, iktidar ve kehanet üzerine kurulu epik bir bilimkurgu.",
+    "notes": [],
+    "history": [
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "İnce Memed",
+    "author": "Yaşar Kemal",
+    "pages": 436,
+    "year": 1955,
+    "genre": "Roman",
+    "priority": "dusuk",
+    "status": "birakildi",
+    "progress": 120,
+    "hue": 110,
+    "desc": "Çukurova’da ağaya başkaldıran genç Memed’in eşkıyalığa uzanan hikâyesi.",
+    "notes": [],
+    "history": [
+      {
+        "date": "28 Ağu 2026",
+        "text": "Yarıda bırakıldı",
+        "kind": "drop"
+      },
+      {
+        "date": "14 Ağu 2026",
+        "text": "Okumaya başlandı",
+        "kind": "start"
+      },
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Martin Eden",
+    "author": "Jack London",
+    "pages": 480,
+    "year": 1909,
+    "genre": "Roman",
+    "priority": "orta",
+    "status": "okundu",
+    "progress": 480,
+    "hue": 190,
+    "desc": "Yazar olmaya karar veren genç bir denizcinin, sınıf ve başarı üzerine acı dersleri.",
+    "notes": [],
+    "history": [
+      {
+        "date": "2 Eyl 2026",
+        "text": "Okundu olarak işaretlendi",
+        "kind": "done"
+      },
+      {
+        "date": "14 Ağu 2026",
+        "text": "Okumaya başlandı",
+        "kind": "start"
+      },
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Dönüşüm",
+    "author": "Franz Kafka",
+    "pages": 96,
+    "year": 1915,
+    "genre": "Klasik",
+    "priority": "yuksek",
+    "status": "okundu",
+    "progress": 96,
+    "hue": 340,
+    "desc": "Bir sabah dev bir böceğe dönüşerek uyanan Gregor Samsa ve ailesinin ona tavrı.",
+    "notes": [],
+    "history": [
+      {
+        "date": "2 Eyl 2026",
+        "text": "Okundu olarak işaretlendi",
+        "kind": "done"
+      },
+      {
+        "date": "14 Ağu 2026",
+        "text": "Okumaya başlandı",
+        "kind": "start"
+      },
+      {
+        "date": "3 Ağu 2026",
+        "text": "Listeye eklendi",
+        "kind": "add"
+      }
+    ]
+  }
+]
