@@ -1,10 +1,11 @@
+import { ASSETS } from "@/shared/constants/assets";
 import "./globals.css";
 
 export const metadata = {
   title: "ReadLog",
   description: "Okuduklarını ve okuyacaklarını tek yerde topla.",
   icons: {
-    icon: "/assets/favicon.ico",
+    icon: ASSETS.favicon,
   },
 };
 
