@@ -4,66 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  background: #f6f3ee;
-  color: #1f1c18;
-  font-family: "Instrument Sans", system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-a {
-  color: oklch(0.5 0.12 40);
-  text-decoration: none;
-}
-
-a:hover {
-  color: #1f1c18;
-}
-
-input,
-select,
-textarea,
-button {
-  font-family: inherit;
-}
-
-@keyframes rlIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 8px);
+@layer base {
+  a {
+    @apply text-accent no-underline hover:text-ink;
   }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-.rl-input:focus {
-  border-color: #1f1c18 !important;
-}
-
-.rl-dark-btn:hover {
-  background: #3a342d !important;
-}
-
-.rl-finish:hover {
-  background: oklch(0.42 0.09 150) !important;
-}
-
-.rl-drop:hover {
-  border-color: oklch(0.55 0.13 30) !important;
-  color: oklch(0.5 0.13 30) !important;
-}
-
-.rl-row:hover {
-  background: #faf7f1;
-}
-
-.rl-lift {
-  transition: transform 0.2s;
-}
-
-.rl-lift:hover {
-  transform: translateY(-3px);
 }
