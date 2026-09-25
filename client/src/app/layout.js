@@ -3,6 +3,9 @@ import "./globals.css";
 export const metadata = {
   title: "ReadLog",
   description: "Okuduklarını ve okuyacaklarını tek yerde topla.",
+  icons: {
+    icon: "/assets/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -1,15 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
-import AuthLayout from "@/components/AuthLayout";
-import BookDetail from "@/components/BookDetail";
-import Header from "@/components/Header";
-import Library from "@/components/Library";
-import Login from "@/components/Login";
-import Profile from "@/components/Profile";
-import Register from "@/components/Register";
-import Toast from "@/components/Toast";
-import { GROUPS, PATHS, SEED_BOOKS, SHELF_FILTERS, TODAY, compareBooks, decorateBook } from "@/lib/books";
+import { AuthLayout, Login, Register } from "@/features/auth";
+import { BookDetail } from "@/features/book-detail";
+import { Library } from "@/features/library";
+import { Profile } from "@/features/profile";
+import { Header, Toast } from "@/shared/components/organisms";
+import seedBooks from "@/shared/mocks/books.json";
+import { GROUPS, PATHS, SHELF_FILTERS, TODAY, compareBooks, decorateBook } from "@/shared/utils/books";
 
 export default function Home() {
   const [route, setRoute] = useState("home");
@@ -19,7 +17,7 @@ export default function Home() {
   const [author, setAuthor] = useState("all");
   const [tab, setTab] = useState("pending");
   const [view, setView] = useState("kart");
-  const [books, setBooks] = useState(SEED_BOOKS);
+  const [books, setBooks] = useState(seedBooks);
   const [saving, setSaving] = useState({});
   const [toast, setToast] = useState(null);
   const [noteDraft, setNoteDraft] = useState("");
@@ -147,15 +145,17 @@ export default function Home() {
               tabs={homeTabs}
               tab={tab}
               onTabChange={setTab}
-              q={q}
-              onSearch={setQ}
-              prio={prio}
-              onPrioChange={setPrio}
-              author={author}
-              authors={[...new Set(books.map((b) => b.author))].sort((a, b) => a.localeCompare(b, "tr"))}
-              onAuthorChange={setAuthor}
+              filters={{
+                q,
+                onSearch: setQ,
+                prio,
+                onPrioChange: setPrio,
+                author,
+                authors: [...new Set(books.map((b) => b.author))].sort((a, b) => a.localeCompare(b, "tr")),
+                onAuthorChange: setAuthor,
+                onViewChange: setView,
+              }}
               view={view}
-              onViewChange={setView}
               onClearFilters={clearFilters}
               actions={actions}
             />
