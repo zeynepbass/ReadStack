@@ -1,13 +1,6 @@
+import Image from "next/image";
 import { Logo } from "@/shared/components/molecules";
-
-const SPINES = [
-  { width: 44, height: 210, color: "oklch(0.5 0.09 40)" },
-  { width: 36, height: 250, color: "oklch(0.5 0.09 150)" },
-  { width: 52, height: 190, color: "#efe8dc" },
-  { width: 30, height: 230, color: "oklch(0.5 0.09 250)" },
-  { width: 40, height: 170, color: "oklch(0.62 0.09 80)" },
-  { width: 38, height: 240, color: "oklch(0.5 0.09 330)", tilted: true },
-];
+import { ASSETS } from "@/shared/constants/assets";
 
 export default function AuthLayout({ routePath, children }) {
   return (
@@ -19,15 +12,7 @@ export default function AuthLayout({ routePath, children }) {
       </div>
 
       <div className="flex min-h-[420px] flex-col justify-end gap-8 bg-dark p-[clamp(32px,6vw,80px)] text-cream">
-        <div className="flex items-end gap-2.5">
-          {SPINES.map((s, i) => (
-            <div
-              key={i}
-              className={`rounded-sm ${s.tilted ? "ml-3.5 origin-bottom-left -rotate-[8deg]" : ""}`}
-              style={{ width: s.width, height: s.height, background: s.color }}
-            />
-          ))}
-        </div>
+        <Image src={ASSETS.bookshelf} alt="" width={304} height={250} priority />
         <p className="m-0 max-w-[520px] font-serif text-[clamp(24px,2.6vw,34px)] italic leading-[1.25] [text-wrap:pretty]">
           “Bir kitabı bitirmek, onu rafa değil hafızaya koymaktır.”
         </p>
