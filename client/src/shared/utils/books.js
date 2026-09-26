@@ -1,4 +1,3 @@
-export const TODAY = "24 Eyl 2026";
 export const READING_GOAL = 24;
 
 export const PRIORITIES = {
@@ -14,6 +13,11 @@ export const PRIORITY_CHIPS = [
   ["dusuk", ...PRIORITIES.dusuk],
 ];
 
+export const PRIORITY_TO_API = { yuksek: "high", orta: "medium", dusuk: "low" };
+const PRIORITY_FROM_API = { high: "yuksek", medium: "orta", low: "dusuk" };
+
+export const STATUS_ACTIONS = { pending: "reopen", approved: "approve", rejected: "reject" };
+
 const STATUS_LABELS = {
   okunacak: "Okunacak",
   okunuyor: "Okunuyor",
@@ -26,6 +30,15 @@ const HISTORY_COLORS = {
   drop: "oklch(0.55 0.13 30)",
   start: "#1f1c18",
   add: "#c9c0b2",
+  reopen: "#c9c0b2",
+};
+
+const HISTORY_TEXT = {
+  add: "Listeye eklendi",
+  start: "Okumaya başlandı",
+  done: "Okundu olarak işaretlendi",
+  drop: "Yarıda bırakıldı",
+  reopen: "Listeye geri alındı",
 };
 
 const PRIORITY_ORDER = { yuksek: 0, orta: 1, dusuk: 2 };
@@ -43,12 +56,46 @@ export const SHELF_FILTERS = {
   tumu: () => true,
 };
 
-export const PATHS = {
-  login: "/login",
-  register: "/register",
-  home: "/",
-  profile: "/profile",
-};
+export function formatDate(value) {
+  if (!value) return "";
+  return new Date(value).toLocaleDateString("tr-TR", { day: "numeric", month: "short", year: "numeric" });
+}
+
+function hueFromId(id) {
+  return [...String(id)].reduce((hash, char) => (hash * 31 + char.charCodeAt(0)) % 360, 7);
+}
+
+export function fromApi(pr) {
+  const pages = pr.fileCount || 0;
+  const progress = pr.status === "approved" ? pages : Math.min(pr.progress ?? 0, pages);
+  const status =
+    pr.status === "approved" ? "okundu" : pr.status === "rejected" ? "birakildi" : progress > 0 ? "okunuyor" : "okunacak";
+  const history = pr.history?.length ? pr.history : [{ kind: "add", createdAt: pr.createdAt }];
+  const finished = pr.status === "approved" ? [...history].reverse().find((h) => h.kind === "done") : null;
+
+  return {
+    id: pr._id,
+    version: pr.version,
+    title: pr.title,
+    author: pr.author,
+    pages,
+    priority: PRIORITY_FROM_API[pr.priority] ?? "orta",
+    status,
+    progress,
+    genre: pr.genre,
+    year: pr.year,
+    desc: pr.description,
+    hue: hueFromId(pr._id),
+    finishedYear: finished ? new Date(finished.createdAt ?? pr.updatedAt).getFullYear() : null,
+    notes: (pr.notes ?? []).map((n) => ({
+      id: n._id,
+      page: n.page != null ? `s. ${n.page}` : "",
+      date: formatDate(n.createdAt),
+      text: n.text,
+    })),
+    history: [...history].reverse().map((h) => ({ date: formatDate(h.createdAt), text: HISTORY_TEXT[h.kind], kind: h.kind })),
+  };
+}
 
 export function compareBooks(a, b) {
   return (
@@ -58,7 +105,7 @@ export function compareBooks(a, b) {
 }
 
 export function decorateBook(b, saving) {
-  const pct = Math.round((b.progress / b.pages) * 100);
+  const pct = b.pages ? Math.round((b.progress / b.pages) * 100) : 0;
   const parts = b.author.split(" ");
   return {
     ...b,
@@ -76,4 +123,20 @@ export function decorateBook(b, saving) {
     closedText: b.status === "okundu" ? "✓ " + b.history[0].date + " bitirildi" : "Yarıda bırakıldı",
     history: b.history.map((h) => ({ ...h, color: HISTORY_COLORS[h.kind] })),
   };
+}
+
+export function initials(name = "") {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toLocaleUpperCase("tr"))
+    .join("");
+}
+
+export function greeting(date = new Date()) {
+  const hour = date.getHours();
+  if (hour < 12) return "Günaydın";
+  if (hour < 18) return "İyi günler";
+  return "İyi akşamlar";
 }

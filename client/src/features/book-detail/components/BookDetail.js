@@ -5,7 +5,7 @@ import HistoryTimeline from "./HistoryTimeline";
 import NotesPanel from "./NotesPanel";
 import Stat from "./Stat";
 
-export default function BookDetail({ book, onBack, actions, onProgressChange, noteDraft, onNoteChange, onAddNote }) {
+export default function BookDetail({ book, onBack, actions, onProgressChange, noteDraft, onNoteChange, onAddNote, noteSaving }) {
   return (
     <PageContainer width="narrow" gap="lg">
       <a href="#" onClick={onBack} className="text-sm text-muted">
@@ -49,8 +49,8 @@ export default function BookDetail({ book, onBack, actions, onProgressChange, no
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] border-y border-line">
             <Stat label="Sayfa" value={book.pages} />
-            <Stat label="Yayın yılı" value={book.year} />
-            <Stat label="Tür" value={book.genre} />
+            <Stat label="Yayın yılı" value={book.year ?? "—"} />
+            <Stat label="Tür" value={book.genre || "—"} />
             <Stat label="Tahmini süre" value={`${book.hours} sa`} />
           </div>
 
@@ -65,19 +65,22 @@ export default function BookDetail({ book, onBack, actions, onProgressChange, no
               max={book.pages}
               value={book.progress}
               onChange={(e) => onProgressChange(+e.target.value)}
-              className="w-full accent-ink"
+              disabled={book.isClosed}
+              className="w-full accent-ink disabled:opacity-60"
             />
           </div>
 
-          <div className="flex flex-col gap-2.5">
-            <h2 className="m-0 text-sm font-semibold">Açıklama</h2>
-            <p className="m-0 max-w-[62ch] font-serif text-[19px] leading-[1.55] text-copy [text-wrap:pretty]">
-              {book.desc}
-            </p>
-          </div>
+          {book.desc && (
+            <div className="flex flex-col gap-2.5">
+              <h2 className="m-0 text-sm font-semibold">Açıklama</h2>
+              <p className="m-0 max-w-[62ch] font-serif text-[19px] leading-[1.55] text-copy [text-wrap:pretty]">
+                {book.desc}
+              </p>
+            </div>
+          )}
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-8">
-            <NotesPanel notes={book.notes} draft={noteDraft} onDraftChange={onNoteChange} onAdd={onAddNote} />
+            <NotesPanel notes={book.notes} draft={noteDraft} onDraftChange={onNoteChange} onAdd={onAddNote} saving={noteSaving} />
             <HistoryTimeline items={book.history} />
           </div>
         </div>

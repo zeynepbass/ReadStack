@@ -18,7 +18,7 @@ export default function BookCard({ book, onOpen, onFinish, onDrop, onRestore }) 
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
           <div className="flex items-center gap-1.5 text-xs text-muted">
             <Dot color={book.prioColor} />
-            {book.prioLabel} öncelik · {book.genre}
+            {book.prioLabel} öncelik · {book.genre || `${book.pages} sayfa`}
           </div>
           <h3 className="m-0 font-serif text-[21px] font-medium leading-[1.15] tracking-[-0.01em]">{book.title}</h3>
           <span className="text-sm text-muted">{book.author}</span>

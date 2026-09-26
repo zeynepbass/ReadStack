@@ -23,7 +23,7 @@ export default function Button({ variant = "primary", size = "md", block = false
   return (
     <button
       type={type}
-      className={cn("cursor-pointer whitespace-nowrap", VARIANTS[variant], SIZES[size], block && "flex-1", className)}
+      className={cn("cursor-pointer whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-60", VARIANTS[variant], SIZES[size], block && "flex-1", className)}
       {...props}
     />
   );
