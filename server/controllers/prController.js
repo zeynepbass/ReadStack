@@ -7,7 +7,7 @@ const HISTORY_KIND = { approved: "done", rejected: "drop", pending: "reopen" };
 const getPRs = async (req, res, next) => {
   try {
     const { search, priority } = req.query;
-    const filter = {};
+    const filter = { createdBy: req.user.id };
 
     if (typeof search === "string" && search.trim()) {
       const pattern = { $regex: escapeRegex(search.trim()), $options: "i" };
@@ -27,7 +27,7 @@ const getPRs = async (req, res, next) => {
 
 const getPRById = async (req, res, next) => {
   try {
-    const pr = await PR.findById(req.params.id);
+    const pr = await PR.findOne({ _id: req.params.id, createdBy: req.user.id });
 
     if (!pr) {
       return res.status(404).json({ error: "Kitap bulunamadı" });
@@ -69,7 +69,7 @@ const updateStatus = (status) => async (req, res, next) => {
     }
 
     const updated = await PR.findOneAndUpdate(
-      { _id: req.params.id, version },
+      { _id: req.params.id, createdBy: req.user.id, version },
       {
         $set: { status },
         $inc: { version: 1 },
@@ -82,7 +82,7 @@ const updateStatus = (status) => async (req, res, next) => {
       return res.json(updated);
     }
 
-    const exists = await PR.exists({ _id: req.params.id });
+    const exists = await PR.exists({ _id: req.params.id, createdBy: req.user.id });
     if (!exists) {
       return res.status(404).json({ error: "Kitap bulunamadı" });
     }
@@ -103,7 +103,7 @@ const updateProgress = async (req, res, next) => {
       return res.status(400).json({ error: "progress alanı 0 veya daha büyük bir tam sayı olmalıdır" });
     }
 
-    const pr = await PR.findById(req.params.id);
+    const pr = await PR.findOne({ _id: req.params.id, createdBy: req.user.id });
 
     if (!pr) {
       return res.status(404).json({ error: "Kitap bulunamadı" });
@@ -133,8 +133,8 @@ const addNote = async (req, res, next) => {
       return res.status(400).json({ error: "text alanı zorunludur" });
     }
 
-    const pr = await PR.findByIdAndUpdate(
-      req.params.id,
+    const pr = await PR.findOneAndUpdate(
+      { _id: req.params.id, createdBy: req.user.id },
       { $push: { notes: { text, ...(Number.isInteger(page) && { page }) } } },
       { returnDocument: "after", runValidators: true }
     );
