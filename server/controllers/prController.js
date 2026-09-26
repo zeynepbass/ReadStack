@@ -2,16 +2,19 @@ const PR = require("../models/PR");
 
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+const HISTORY_KIND = { approved: "done", rejected: "drop", pending: "reopen" };
+
 const getPRs = async (req, res, next) => {
   try {
     const { search, priority } = req.query;
     const filter = {};
 
-    if (search) {
-      filter.title = { $regex: escapeRegex(search), $options: "i" };
+    if (typeof search === "string" && search.trim()) {
+      const pattern = { $regex: escapeRegex(search.trim()), $options: "i" };
+      filter.$or = [{ title: pattern }, { author: pattern }];
     }
 
-    if (priority) {
+    if (typeof priority === "string" && priority) {
       filter.priority = priority;
     }
 
@@ -27,7 +30,7 @@ const getPRById = async (req, res, next) => {
     const pr = await PR.findById(req.params.id);
 
     if (!pr) {
-      return res.status(404).json({ error: "PR bulunamadı" });
+      return res.status(404).json({ error: "Kitap bulunamadı" });
     }
 
     res.json(pr);
@@ -38,13 +41,16 @@ const getPRById = async (req, res, next) => {
 
 const createPR = async (req, res, next) => {
   try {
-    const { title, author, fileCount, priority } = req.body;
+    const { title, author, fileCount, priority, genre, year, description } = req.body ?? {};
 
     const pr = await PR.create({
       title,
       author,
       fileCount,
       priority,
+      genre,
+      year,
+      description,
       createdBy: req.user.id,
     });
 
@@ -56,7 +62,7 @@ const createPR = async (req, res, next) => {
 
 const updateStatus = (status) => async (req, res, next) => {
   try {
-    const { version } = req.body;
+    const { version } = req.body ?? {};
 
     if (typeof version !== "number") {
       return res.status(400).json({ error: "version alanı zorunludur ve sayı olmalıdır" });
@@ -64,8 +70,12 @@ const updateStatus = (status) => async (req, res, next) => {
 
     const updated = await PR.findOneAndUpdate(
       { _id: req.params.id, version },
-      { $set: { status }, $inc: { version: 1 } },
-      { new: true }
+      {
+        $set: { status },
+        $inc: { version: 1 },
+        $push: { history: { kind: HISTORY_KIND[status] } },
+      },
+      { returnDocument: "after" }
     );
 
     if (updated) {
@@ -74,12 +84,66 @@ const updateStatus = (status) => async (req, res, next) => {
 
     const exists = await PR.exists({ _id: req.params.id });
     if (!exists) {
-      return res.status(404).json({ error: "PR bulunamadı" });
+      return res.status(404).json({ error: "Kitap bulunamadı" });
     }
 
     return res
       .status(409)
-      .json({ error: "Bu PR başka biri tarafından güncellendi, sayfayı yenileyin" });
+      .json({ error: "Bu kitap başka biri tarafından güncellendi, sayfayı yenileyin" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const updateProgress = async (req, res, next) => {
+  try {
+    const { progress } = req.body ?? {};
+
+    if (!Number.isInteger(progress) || progress < 0) {
+      return res.status(400).json({ error: "progress alanı 0 veya daha büyük bir tam sayı olmalıdır" });
+    }
+
+    const pr = await PR.findById(req.params.id);
+
+    if (!pr) {
+      return res.status(404).json({ error: "Kitap bulunamadı" });
+    }
+
+    const value = Math.min(progress, pr.fileCount);
+    const started = pr.history.some((h) => h.kind === "start");
+
+    if (value > 0 && !started) {
+      pr.history.push({ kind: "start" });
+    }
+
+    pr.progress = value;
+    await pr.save();
+
+    res.json(pr);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const addNote = async (req, res, next) => {
+  try {
+    const { text, page } = req.body ?? {};
+
+    if (typeof text !== "string" || !text.trim()) {
+      return res.status(400).json({ error: "text alanı zorunludur" });
+    }
+
+    const pr = await PR.findByIdAndUpdate(
+      req.params.id,
+      { $push: { notes: { text, ...(Number.isInteger(page) && { page }) } } },
+      { returnDocument: "after", runValidators: true }
+    );
+
+    if (!pr) {
+      return res.status(404).json({ error: "Kitap bulunamadı" });
+    }
+
+    res.status(201).json(pr);
   } catch (err) {
     next(err);
   }
@@ -87,5 +151,6 @@ const updateStatus = (status) => async (req, res, next) => {
 
 const approvePR = updateStatus("approved");
 const rejectPR = updateStatus("rejected");
+const reopenPR = updateStatus("pending");
 
-module.exports = { getPRs, getPRById, createPR, approvePR, rejectPR };
+module.exports = { getPRs, getPRById, createPR, approvePR, rejectPR, reopenPR, updateProgress, addNote };
