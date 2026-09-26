@@ -32,9 +32,11 @@ const prSchema = new mongoose.Schema(
     progress: { type: Number, default: 0, min: [0, "İlerleme negatif olamaz"] },
     notes: { type: [noteSchema], default: [] },
     history: { type: [historySchema], default: () => [{ kind: "add" }] },
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   },
   { timestamps: true }
 );
+
+prSchema.index({ createdBy: 1, createdAt: -1 });
 
 module.exports = mongoose.model("PR", prSchema);

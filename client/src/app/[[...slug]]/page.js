@@ -88,6 +88,16 @@ export default function Home() {
       setUser(null);
       setPrs([]);
       setVisibleIds(null);
+      setQ("");
+      setSearch("");
+      setPrio("all");
+      setAuthor("all");
+      setTab("pending");
+      setPtab("okundu");
+      setSaving({});
+      setAddForm({ open: false, loading: false, error: null });
+      setDetailState({ loading: false, error: null });
+      setListState({ loading: false, error: null });
       navigate("login", null, { replace: true });
       if (message) showToast({ text: message });
     },

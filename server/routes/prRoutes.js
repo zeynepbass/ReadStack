@@ -13,13 +13,15 @@ const {
 
 const router = express.Router();
 
+router.use(authMiddleware);
+
 router.get("/", getPRs);
 router.get("/:id", getPRById);
-router.post("/", authMiddleware, createPR);
-router.patch("/:id/approve", authMiddleware, approvePR);
-router.patch("/:id/reject", authMiddleware, rejectPR);
-router.patch("/:id/reopen", authMiddleware, reopenPR);
-router.patch("/:id/progress", authMiddleware, updateProgress);
-router.post("/:id/notes", authMiddleware, addNote);
+router.post("/", createPR);
+router.patch("/:id/approve", approvePR);
+router.patch("/:id/reject", rejectPR);
+router.patch("/:id/reopen", reopenPR);
+router.patch("/:id/progress", updateProgress);
+router.post("/:id/notes", addNote);
 
 module.exports = router;
