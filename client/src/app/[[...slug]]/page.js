@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AuthLayout, ForgotPassword, Login, Register } from "@/features/auth";
+import { AuthLayout, ForgotPassword, Login, Register, authRepository } from "@/features/auth";
 import { BookDetail, BookDetailStatus } from "@/features/book-detail";
 import { Library } from "@/features/library";
 import { Profile } from "@/features/profile";
@@ -83,7 +83,7 @@ export default function Home() {
   const logout = useCallback(
     (message, { revoke = false } = {}) => {
       const refreshToken = session.get("refreshToken");
-      if (revoke && refreshToken) api.post("/auth/logout", { refreshToken }).catch(() => {});
+      if (revoke && refreshToken) authRepository.logout(refreshToken).catch(() => {});
       session.clear();
       setUser(null);
       setPrs([]);
@@ -130,11 +130,11 @@ export default function Home() {
 
     if (isAuthed) {
       setUser(savedUser);
-      api
-        .get("/auth/me")
-        .then(({ data }) => {
-          session.setUser(data.user);
-          setUser(data.user);
+      authRepository
+        .me()
+        .then((me) => {
+          session.setUser(me);
+          setUser(me);
         })
         .catch(() => {});
     }
@@ -224,7 +224,7 @@ export default function Home() {
   const goal = user?.readingGoal ?? READING_GOAL;
 
   const completeLogin = async ({ email, password, remember = true }) => {
-    const { data } = await api.post("/auth/login", { email, password });
+    const data = await authRepository.login({ email, password });
     session.save(data, remember);
     setUser(data.user);
     navigate("home", null, { replace: true });
@@ -244,17 +244,17 @@ export default function Home() {
 
   const handleLogin = (form) => runAuth(() => completeLogin(form), "Giriş yapılamadı");
 
-  const handleRegister = ({ name, email, password, goal: readingGoal }) =>
+  const handleRegister = ({ name, email, password, goal }) =>
     runAuth(async () => {
-      await api.post("/auth/register", { name, email, password, readingGoal });
+      await authRepository.register({ name, email, password, goal });
       await completeLogin({ email, password });
     }, "Kayıt oluşturulamadı");
 
   const handleForgot = (email) =>
-    runAuth(async () => (await api.post("/auth/forgot-password", { email })).data, "Sıfırlama kodu oluşturulamadı");
+    runAuth(() => authRepository.forgotPassword(email), "Sıfırlama kodu oluşturulamadı");
 
   const handleReset = async ({ token, password }) => {
-    const done = await runAuth(async () => (await api.post("/auth/reset-password", { token, password })).data, "Şifre güncellenemedi");
+    const done = await runAuth(() => authRepository.resetPassword({ token, password }), "Şifre güncellenemedi");
     if (!done) return;
     navigate("login", null, { replace: true });
     showToast({ text: done.message });
