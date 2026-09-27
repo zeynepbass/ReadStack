@@ -3,3 +3,8 @@ export { default as ForgotPassword } from "./components/ForgotPassword";
 export { default as Login } from "./components/Login";
 export { default as Register } from "./components/Register";
 export { authRepository } from "./repositories/auth.repository";
+export { useLogin, useLogout } from "./hooks/useAuth";
+export { useMe } from "./hooks/useMe";
+export { useRegister } from "./hooks/useRegister";
+export { useForgotPassword, useResetPassword } from "./hooks/usePassword";
+export { useMonthlyStats } from "./hooks/useMonthlyStats";

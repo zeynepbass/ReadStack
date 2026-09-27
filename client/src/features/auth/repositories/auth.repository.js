@@ -10,4 +10,5 @@ export const authRepository = {
     authAdapter.toMessage(await authApi.forgotPassword(authAdapter.toForgotPasswordRequest(email))),
   resetPassword: async (form) =>
     authAdapter.toMessage(await authApi.resetPassword(authAdapter.toResetPasswordRequest(form))),
+  getMonthlyStats: async () => authAdapter.toMonthlyStats(await authApi.monthlyStats()),
 };

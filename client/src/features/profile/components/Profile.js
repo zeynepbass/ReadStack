@@ -4,8 +4,11 @@ import { PageContainer } from "@/shared/components/templates";
 import GoalCard from "./GoalCard";
 import Shelf from "./Shelf";
 import StatCard from "./StatCard";
+import { useProfile } from "../hooks/useProfile";
 
-export default function Profile({ user, goal, readCount, readingCount, pagesRead, tabs, tab, onTabChange, shelf, onOpen, onLogout }) {
+export default function Profile({ onOpen, onLogout }) {
+  const { user, goal, readCount, readingCount, pagesRead, tabs, tab, onTabChange, shelf } = useProfile();
+
   return (
     <PageContainer gap="xl">
       <div className="flex flex-wrap items-center gap-6">

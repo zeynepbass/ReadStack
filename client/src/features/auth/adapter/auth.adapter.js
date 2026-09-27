@@ -17,4 +17,5 @@ export const authAdapter = {
     user: authAdapter.toUser(data.user),
   }),
   toMessage: (data) => ({ message: data.message, resetToken: data.resetToken }),
+  toMonthlyStats: (data) => ({ booksRead: data.booksRead, pagesRead: data.pagesRead }),
 };

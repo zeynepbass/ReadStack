@@ -1,10 +1,13 @@
 import Image from "next/image";
 import { Logo } from "@/shared/components/molecules";
 import { ASSETS } from "@/shared/constants/assets";
+import { useMonthlyStats } from "../hooks/useMonthlyStats";
 
 const formatCount = (value) => (value == null ? "—" : value.toLocaleString("tr-TR"));
 
-export default function AuthLayout({ stats, children }) {
+export default function AuthLayout({ children }) {
+  const { data: stats } = useMonthlyStats();
+
   return (
     <div className="grid min-h-screen grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
       <div className="flex flex-col justify-between gap-12 px-[clamp(24px,6vw,80px)] py-10">
