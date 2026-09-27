@@ -7,12 +7,12 @@ const SIZES = {
   lg: { width: 22, height: 28, text: "text-2xl" },
 };
 
-export default function Logo({ size = "md" }) {
+export default function Logo({ size = "md", compact = false }) {
   const s = SIZES[size];
   return (
     <div className="flex items-center gap-2.5">
       <Image src={ASSETS.logo} alt="" width={s.width} height={s.height} priority />
-      <span className={cn("font-serif font-semibold tracking-[-0.01em] text-ink", s.text)}>ReadLog</span>
+      <span className={cn("font-serif font-semibold tracking-[-0.01em] text-ink", s.text, compact && "max-[379px]:sr-only")}>ReadLog</span>
     </div>
   );
 }
