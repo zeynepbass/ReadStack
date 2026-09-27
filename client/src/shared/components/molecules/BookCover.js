@@ -31,13 +31,13 @@ export default function BookCover({ book, variant = "card", onClick }) {
   return (
     <div
       onClick={onClick}
-      className={cn("relative box-border flex flex-col justify-between", v.box, onClick && "cursor-pointer")}
+      className={cn("relative box-border flex flex-col justify-between overflow-hidden", v.box, onClick && "cursor-pointer")}
       style={{ background: book.cover }}
     >
       {hasText && (
         <>
           <div className={cn("absolute inset-y-0 left-0 bg-black/[0.18]", v.spine)} />
-          <span className={cn("font-serif font-medium leading-[1.15] text-cover", v.title)}>{book.title}</span>
+          <span className={cn("hyphens-auto break-words font-serif font-medium leading-[1.15] text-cover", v.title)}>{book.title}</span>
           <span className={cn("uppercase", v.author)}>{variant === "detail" ? book.author : book.authorShort}</span>
         </>
       )}

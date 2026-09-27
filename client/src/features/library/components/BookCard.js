@@ -23,7 +23,7 @@ export default function BookCard({ book, onOpen, onFinish, onDrop, onRestore }) 
           <h3 className="m-0 font-serif text-[21px] font-medium leading-[1.15] tracking-[-0.01em]">{book.title}</h3>
           <span className="text-sm text-muted">{book.author}</span>
           <div className="mt-auto flex flex-col gap-1.5">
-            <div className="flex justify-between text-xs text-muted">
+            <div className="flex flex-wrap justify-between gap-x-2 text-xs text-muted">
               <span>{book.statusLabel}</span>
               <span className="font-mono">{book.progressText}</span>
             </div>

@@ -2,7 +2,7 @@ import { BookCover } from "@/shared/components/molecules";
 
 export default function Shelf({ books, onOpen }) {
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-x-5 gap-y-6">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,120px),1fr))] sm:grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-x-5 gap-y-6">
       {books.map((b) => (
         <div
           key={b.id}
