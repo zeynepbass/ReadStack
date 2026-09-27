@@ -1,4 +1,5 @@
 import { ASSETS } from "@/shared/constants/assets";
+import QueryProvider from "@/shared/providers/QueryProvider";
 import "./globals.css";
 
 export const metadata = {
@@ -12,7 +13,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="tr">
-      <body className="m-0 bg-paper font-sans text-ink antialiased">{children}</body>
+      <body className="m-0 bg-paper font-sans text-ink antialiased">
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }

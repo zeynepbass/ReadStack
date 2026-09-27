@@ -1,11 +1,20 @@
 import { Button, Dot } from "@/shared/components/atoms";
 import { BookCover } from "@/shared/components/molecules";
 import { PageContainer } from "@/shared/components/templates";
+import BookDetailStatus from "./BookDetailStatus";
 import HistoryTimeline from "./HistoryTimeline";
 import NotesPanel from "./NotesPanel";
 import Stat from "./Stat";
+import { useBookDetailPage } from "../hooks/useBookDetailPage";
 
-export default function BookDetail({ book, onBack, actions, onProgressChange, noteDraft, onNoteChange, onAddNote, noteSaving }) {
+export default function BookDetail({ bookId, onBack, onToast }) {
+  const { book, statusTitle, actions, onProgressChange, noteDraft, onNoteChange, onAddNote, noteSaving } = useBookDetailPage({
+    bookId,
+    onToast,
+  });
+
+  if (!book) return <BookDetailStatus title={statusTitle} onBack={onBack} />;
+
   return (
     <PageContainer width="narrow" gap="lg">
       <a href="#" onClick={onBack} className="text-sm text-muted">

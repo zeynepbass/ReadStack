@@ -6,23 +6,25 @@ import BookCard from "./BookCard";
 import BookTable from "./BookTable";
 import EmptyState from "./EmptyState";
 import LibraryFilters from "./LibraryFilters";
+import { useLibrary } from "../hooks/useLibrary";
 
-export default function Library({
-  books,
-  greeting,
-  pendingCount,
-  tabs,
-  tab,
-  onTabChange,
-  filters,
-  view,
-  onClearFilters,
-  actions,
-  loading,
-  error,
-  onRetry,
-  addForm,
-}) {
+export default function Library({ onOpen, onToast }) {
+  const {
+    books,
+    greeting,
+    pendingCount,
+    tabs,
+    tab,
+    onTabChange,
+    filters,
+    view,
+    onClearFilters,
+    actions,
+    loading,
+    error,
+    onRetry,
+    addForm,
+  } = useLibrary({ onOpen, onToast });
   const ready = !loading && !error;
 
   return (
